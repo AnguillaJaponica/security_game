@@ -1,3 +1,5 @@
+require 'csv'
+
 # 密漁警備ゲーム
 
 # 警備箇所のサイズ
@@ -37,12 +39,12 @@ end
 
 # 警備側の全体的な利得
 def utility_for_defense(c_vec, t)
-  return (c_vec[t] * utility_table_for_defense(1) + (1 - c_vec[t] * utility_table_for_defense(0))
+  return (c_vec[t] * utility_table_for_defense(1) + (1 - c_vec[t] * utility_table_for_defense(0)))
 end
 
 # 密漁側の全体的な利得
 def utility_for_attack(c_vec, t)
-  return (c_vec[t] * utility_table_for_attack(1) + (1 - c_vec[t] * utility_table_for_attack(0))
+  return (c_vec[t] * utility_table_for_attack(1) + (1 - c_vec[t] * utility_table_for_attack(0)))
 end
 
 # 攻撃ベクトルが与えられた際の、警備側の期待利得
@@ -95,47 +97,23 @@ def main(c_vec, a_vec)
       return FALSE_VALUE
     end
   end
-
   return d
-
 end
 
+c = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+a = [0, 1]
 
+d_max = FALSE_VALUE
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+c.product(c,c,c,c).each do |c_vec|
+  a.product(a,a,a,a).each do |a_vec|
+    d = main(c_vec, a_vec)
+    if d_max <= d
+      if d_max < d
+        puts ''
+      end
+      puts "#{c_vec}, #{a_vec}, #{d}"
+      d_max = d
+    end
+  end
+end
