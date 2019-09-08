@@ -1,5 +1,6 @@
 # 密漁警備ゲーム
 # 基本形
+# TODO 全体的に可読性をあげる。
 
 # 警備箇所のサイズ
 TARGET_SIZE = 5
@@ -18,7 +19,8 @@ Z = 1000
 FALSE_VALUE = -100000000000000
 
 # 警備した場合の利得
-
+# TODO cが何を指すかわかりやすいようにリファクタリング
+# TODO 資源量に応じて利得を変える
 def utility_table_for_defense(c)
   if c == 1
     return 5
@@ -37,6 +39,7 @@ def utility_table_for_attack(c)
 end
 
 # 警備側の全体的な利得
+# TODO c_vecを明記する
 def utility_for_defense(c_vec, t)
   return (c_vec[t] * utility_table_for_defense(1) + (1 - c_vec[t] * utility_table_for_defense(0)))
 end
@@ -55,7 +58,7 @@ def d_func(c_vec, a_vec)
   return sum
 end
 
-# 攻撃ベクトルが与えられた際の、警備側の期待利得
+# 攻撃ベクトルが与えられた際の、密漁者側の期待利得
 def k_func(c_vec, a_vec)
   sum = 0
   TARGET_SIZE.times do |t|
