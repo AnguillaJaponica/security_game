@@ -1,6 +1,5 @@
-require 'csv'
-
 # 密漁警備ゲーム
+# 基本形
 
 # 警備箇所のサイズ
 TARGET_SIZE = 5
